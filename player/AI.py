@@ -250,48 +250,33 @@ class AI:
         return arr
 
 
-    def calculateb(self,gametiles):
-        value=0
-        for x in range(8):
-            for y in range(8):
-                    if gametiles[y][x].pieceonTile.tostring()=='P':
-                        value=value-100
-
-                    if gametiles[y][x].pieceonTile.tostring()=='N':
-                        value=value-350
-
-                    if gametiles[y][x].pieceonTile.tostring()=='B':
-                        value=value-350
-
-                    if gametiles[y][x].pieceonTile.tostring()=='R':
-                        value=value-525
-
-                    if gametiles[y][x].pieceonTile.tostring()=='Q':
-                        value=value-1000
-
-                    if gametiles[y][x].pieceonTile.tostring()=='K':
-                        value=value-10000
-
-                    if gametiles[y][x].pieceonTile.tostring()=='p':
-                        value=value+100
-
-                    if gametiles[y][x].pieceonTile.tostring()=='n':
-                        value=value+350
-
-                    if gametiles[y][x].pieceonTile.tostring()=='b':
-                        value=value+350
-
-                    if gametiles[y][x].pieceonTile.tostring()=='r':
-                        value=value+525
-
-                    if gametiles[y][x].pieceonTile.tostring()=='q':
-                        value=value+1000
-
-                    if gametiles[y][x].pieceonTile.tostring()=='k':
-                        value=value+10000
+       def calculateb(self, gametiles):
+        value = 0
+        piece_value = {'P': -100, 'N': -350, 'B': -350, 'R': -525, 'Q': -1000, 'K': -10000,
+                       'p': 100, 'n': 350, 'b': 350, 'r': 525, 'q': 1000, 'k': 10000}
+        position_value = {
+            'P': [0, 10, 20, 50, 100, 200, 350, 450],  
+            'N': [0, 10, 20, 50, 100, 200, 350, 450], 
+            'B': [0, 10, 20, 50, 100, 200, 350, 450],  
+            'R': [0, 10, 20, 50, 100, 200, 350, 450],  
+            'Q': [0, 10, 20, 50, 100, 200, 350, 450],  
+            'K': [0, 10, 10, 10, 10, 10, 10, 10],  
+            'p': [0, 10, 20, 50, 100, 200, 350, 450],  
+            'n': [0, 10, 20, 50, 100, 200, 350, 450],  
+            'b': [0, 10, 20, 50, 100, 200, 350, 450],  
+            'r': [0, 10, 20, 50, 100, 200, 350, 450], 
+            'q': [0, 10, 20, 50, 100, 200, 350, 450],  
+            'k': [0, 10, 10, 10, 10, 10, 10, 10],  
+        }
+        for y in range(8):
+            for x in range(8):
+                piece = gametiles[y][x].pieceonTile.tostring()
+                if piece in piece_value:
+                    value += piece_value[piece]
+                    if piece in position_value:
+                        value += position_value[piece][y]
 
         return value
-
 
     def move(self,gametiles,y,x,n,m):
         promotion=False
